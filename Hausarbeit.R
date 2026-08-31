@@ -9,13 +9,13 @@ baltikum_df_90 <- vdem_df %>%
   group_by(year) %>%
   summarise(
     country_name = "Baltikum (Durchschnitt)",
-    v2x_liberal = mean(v2x_liberal, na.rm = TRUE),
+    v2x_libdem = mean(v2x_libdem, na.rm = TRUE),
     .groups = "drop"
   )
 
 vergleich_einzel_90 <- vdem_df %>%
   filter(country_name %in% c("Hungary", "Georgia"), year >= 1990) %>%
-  select(year, country_name, v2x_liberal) %>%
+  select(year, country_name, v2x_libdem) %>%
   mutate(country_name = case_when(
     country_name == "Georgia" ~ "Georgien",
     country_name == "Hungary" ~ "Ungarn",
@@ -24,7 +24,7 @@ vergleich_einzel_90 <- vdem_df %>%
 
 vergleich_df_90 <- bind_rows(vergleich_einzel_90, baltikum_df_90)
 
-ggplot(vergleich_df_90, aes(x = year, y = v2x_liberal, color = country_name, group = country_name)) +
+ggplot(vergleich_df_90, aes(x = year, y = v2x_libdem, color = country_name, group = country_name)) +
   theme_bw(base_size = 11) +
   
   geom_vline(xintercept = 1991, linetype = "dashed", color = "grey65", linewidth = 0.5) +
@@ -48,7 +48,7 @@ ggplot(vergleich_df_90, aes(x = year, y = v2x_liberal, color = country_name, gro
   scale_x_continuous(breaks = seq(1990, 2025, 5)) +
   
   labs(
-    title = "Abbildung 1: Regimetransformationen im post-sozialistischen Raum (1990–2025)",
+    title = "Abbildung 1: Regimetransformationen im postsozialistischen Raum (1990–2025)",
     subtitle = "Vergleich des Liberal Democracy Index (LDI) zwischen Baltikum, Ungarn und Georgien",
     x = "Jahr",
     y = "Liberal Democracy Index (LDI)",
